@@ -2,8 +2,8 @@
 Ansible Role for maintaing PHP on linux servers
 
 ## Requirements
-City-of-Bloomington.linux
-City-of-Bloomington.apache
+- City-of-Bloomington.linux
+- City-of-Bloomington.apache
 
 ## Dependencies
 - City-of-Bloomington.linux
