@@ -1,0 +1,33 @@
+---
+- name: Install php and related packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - php-common
+    - php-cli
+    - php-json
+    - php-readline
+    - php-mysql
+    - php-mcrypt
+    - php-mbstring
+    - php-gd
+    - php-intl
+    - php-curl
+    - php-ldap
+    - php-xsl
+    - libapache2-mod-php
+
+- name: Install local.ini
+  template:
+    src: local.ini.j2
+    dest: /etc/php/7.0/local.ini
+
+- name: Create symbolic links to local.ini
+  file:
+    src:  /etc/php/7.0/local.ini
+    dest: /etc/php/7.0/{{ item }}/conf.d/local.ini
+    state: link
+  with_items:
+    - apache2
+    - cli

@@ -1,0 +1,39 @@
+; When PHP displays or logs an error, it has the capability of formatting the
+; error message as HTML for easier reading. This directive controls whether
+; the error message is formatted as HTML or not.
+; Note: This directive is hardcoded to Off for the CLI SAPI
+; Default Value: On
+; Development Value: On
+; Production value: On
+; http://php.net/html-errors
+html_errors = Off
+
+; The separator used in PHP generated URLs to separate arguments.
+; PHP's default setting is "&".
+; http://php.net/arg-separator.output
+; Example:
+arg_separator.output = ";"
+
+; List of separator(s) used by PHP to parse input URLs into variables.
+; PHP's default setting is "&".
+; NOTE: Every character in this directive is considered as separator!
+; http://php.net/arg-separator.input
+; Example:
+arg_separator.input = ";&"
+
+[Date]
+; Defines the default timezone used by the date functions
+; http://php.net/date.timezone
+date.timezone = {{ ntp_timezone }}
+
+; http://php.net/date.default-latitude
+date.default_latitude = 39.169927
+
+; http://php.net/date.default-longitude
+date.default_longitude = -86.536806
+
+[intl]
+intl.default_locale = en_US
+
+[xdebug]
+;xdebug.profiler_enable = 1
