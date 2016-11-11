@@ -17,6 +17,7 @@
     - php-ldap
     - php-xsl
     - libapache2-mod-php
+    - gettext
 
 - name: Install local.ini
   template:
@@ -31,3 +32,20 @@
   with_items:
     - apache2
     - cli
+
+- name: Copy composer installer
+  copy:
+    src: install_composer.sh
+    dest: /usr/local/bin/install_composer
+    mode: 0755
+
+- name: Install Composer
+  command: /usr/local/bin/install_composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: Install PHPUnit
+  get_url:
+    url: https://phar.phpunit.de/phpunit.phar
+    dest: /usr/local/bin/phpunit
+    mode: 0755
