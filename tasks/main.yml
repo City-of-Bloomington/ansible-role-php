@@ -44,6 +44,12 @@
   args:
     creates: /usr/local/bin/composer
 
+- name: Configure Github Oauth Token for Composer
+  become: no
+  command: composer config -g github-oauth.github.com {{ github_oauth_token }}
+  args:
+    creates: '~/.config/composer/auth.json'
+
 - name: Install PHPUnit
   get_url:
     url: https://phar.phpunit.de/phpunit.phar
