@@ -49,7 +49,9 @@
   command: composer config -g github-oauth.github.com {{ github_oauth_token }}
   args:
     creates: '~/.config/composer/auth.json'
-
+  #If github pulls are slow or stall, be sure to set this!!!
+  when: vault_github_oauth_token is defined
+    
 - name: Install PHPUnit
   get_url:
     url: https://phar.phpunit.de/phpunit.phar
