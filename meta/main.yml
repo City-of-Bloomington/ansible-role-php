@@ -15,4 +15,5 @@ galaxy_info:
     - php
 
 dependencies:
-  - { role: City-of-Bloomington.linux }
+  - { role: City-of-Bloomington.linux  }
+  - { role: City-of-Bloomington.apache }

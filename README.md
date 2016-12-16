@@ -1,12 +1,9 @@
 # PHP
 Ansible Role for maintaing PHP on linux servers
 
-## Requirements
-- City-of-Bloomington.linux
-- City-of-Bloomington.apache
-
 ## Dependencies
 - City-of-Bloomington.linux
+- City-of-Bloomington.apache
 
 Example Playbook
 ----------------
@@ -15,8 +12,6 @@ Example Playbook
 - hosts: linux-php
   become: yes
   roles:
-    - City-of-Bloomington.linux
-    - City-of-Bloomington.apache
     - City-of-Bloomington.php
 ```
 
