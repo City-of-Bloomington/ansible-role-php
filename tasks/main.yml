@@ -8,7 +8,6 @@
     - php-cli
     - php-json
     - php-readline
-    - php-mysql
     - php-mcrypt
     - php-mbstring
     - php-gd
