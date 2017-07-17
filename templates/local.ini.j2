@@ -23,5 +23,9 @@ date.default_latitude = 39.169927
 date.default_longitude = -86.536806
 intl.default_locale = en_US
 
+; Ubuntu does not use sensible INI settings for PHP sessions
+session.use_strict_mode = 1
+session.gc_probability = 1
+
 ; This stub is here to quickly turn XDebug on and off during development
 ;xdebug.profiler_enable = 1
