@@ -18,15 +18,19 @@
     - libapache2-mod-php
     - gettext
 
+- name: "Look up PHP version"
+  shell: php -v | grep -Po '(?<=PHP\s)\d\.\d'
+  register: php_version
+
 - name: Install local.ini
   template:
     src: local.ini.j2
-    dest: /etc/php/7.0/local.ini
+    dest: "/etc/php/{{ php_version.stdout }}/local.ini"
 
 - name: Create symbolic links to local.ini
   file:
-    src:  /etc/php/7.0/local.ini
-    dest: /etc/php/7.0/{{ item }}/conf.d/local.ini
+    src:  "/etc/php/{{ php_version.stdout }}/local.ini"
+    dest: "/etc/php/{{ php_version.stdout }}/{{ item }}/conf.d/local.ini"
     state: link
   with_items:
     - apache2
