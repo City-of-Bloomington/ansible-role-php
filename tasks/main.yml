@@ -1,21 +1,22 @@
 ---
-- name: Install php and related packages
+- name: "Install php and related packages"
   apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - php-common
-    - php-cli
-    - php-json
-    - php-readline
-    - php-mbstring
-    - php-gd
-    - php-intl
-    - php-curl
-    - php-ldap
-    - php-xsl
-    - libapache2-mod-php
-    - gettext
+    name: "{{ packages }}"
+    state: "present"
+  vars:
+    packages:
+      - "php-common"
+      - "php-cli"
+      - "php-json"
+      - "php-readline"
+      - "php-mbstring"
+      - "php-gd"
+      - "php-intl"
+      - "php-curl"
+      - "php-ldap"
+      - "php-xsl"
+      - "libapache2-mod-php"
+      - "gettext"
 
 - name: "Look up PHP version"
   shell: php -v | grep -Po '(?<=PHP\s)\d\.\d'
