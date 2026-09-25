@@ -1,6 +1,6 @@
 ---
 - name: "Install php and related packages"
-  apt:
+  ansible.builtin.apt:
     name: "{{ packages }}"
     state: "present"
   vars:
@@ -15,24 +15,41 @@
       - "php-curl"
       - "php-ldap"
       - "php-xsl"
-      - "libapache2-mod-php"
+      - 'php-fpm'
+      - "libapache2-mod-fcgid"
       - "gettext"
 
 - name: "Look up PHP version"
-  shell: php -v | grep -Po '(?<=PHP\s)\d\.\d'
+  ansible.builtin.shell: php -v | grep -Po '(?<=PHP\s)\d\.\d'
   register: php_version
 
-- name: Install local.ini
-  template:
-    src: local.ini
+- name: 'Install local.ini'
+  ansible.builtin.template:
+    src:  'local.ini'
     dest: "/etc/php/{{ php_version.stdout }}/local.ini"
 
-- name: Create symbolic links to local.ini
-  file:
+- name: 'Create symbolic links to local.ini'
+  ansible.builtin.file:
     src:  "/etc/php/{{ php_version.stdout }}/local.ini"
     dest: "/etc/php/{{ php_version.stdout }}/{{ item }}/conf.d/local.ini"
-    state: link
+    state: 'link'
   with_items:
-    - apache2
-    - cli
+    - 'fpm'
+    - 'cli'
+
+- name: "Enable apache modules"
+  community.general.apache2_module:
+    name:       "{{ item }}"
+    identifier: "{{ item }}_module"
+    state: "present"
+  with_items:
+    - 'fcgid'
+    - 'proxy_fcgi'
+
+- name: 'Enable php-fpm apache conf'
+  ansible.builtin.file:
+    src:  "/etc/apache2/conf-available/php{{ php_version.stdout }}-fpm.conf"
+    dest: "/etc/apache2/conf-enabled/php{{ php_version.stdout }}-fpm.conf"
+    state: 'link'
+  notify: "apache_restart"
 ...
